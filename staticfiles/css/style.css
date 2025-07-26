@@ -1,0 +1,288 @@
+/* --- CSS Variables for Theming & Professional Design --- */
+:root {
+    --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Light Theme */
+    --bg-gradient-light: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --app-bg-light: rgba(255, 255, 255, 0.5);
+    --text-primary-light: #2c3e50;
+    --text-secondary-light: #7f8c8d;
+    --accent-primary-light: #3498db;
+    --accent-secondary-light: #2ecc71;
+    --border-light: rgba(200, 200, 200, 0.5);
+    --shadow-light: rgba(44, 62, 80, 0.15);
+    --delete-light: #e74c3c;
+    
+    /* Dark Theme */
+    --bg-gradient-dark: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+    --app-bg-dark: rgba(44, 62, 80, 0.6);
+    --text-primary-dark: #ecf0f1;
+    --text-secondary-dark: #bdc3c7;
+    --accent-primary-dark: #5dade2;
+    --accent-secondary-dark: #2ecc71;
+    --border-dark: rgba(236, 240, 241, 0.2);
+    --shadow-dark: rgba(0, 0, 0, 0.3);
+    --delete-dark: #ff7675;
+
+    /* Default to Light Theme */
+    --bg-gradient: var(--bg-gradient-light);
+    --app-bg: var(--app-bg-light);
+    --text-primary: var(--text-primary-light);
+    --text-secondary: var(--text-secondary-light);
+    --accent-primary: var(--accent-primary-light);
+    --accent-secondary: var(--accent-secondary-light);
+    --border-color: var(--border-light);
+    --shadow-color: var(--shadow-light);
+    --delete-color: var(--delete-light);
+}
+
+[data-theme="dark"] {
+    --bg-gradient: var(--bg-gradient-dark);
+    --app-bg: var(--app-bg-dark);
+    --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --accent-primary: var(--accent-primary-dark);
+    --accent-secondary: var(--accent-secondary-dark);
+    --border-color: var(--border-dark);
+    --shadow-color: var(--shadow-dark);
+    --delete-color: var(--delete-dark);
+}
+
+/* --- Base & Body Styles --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background-image: var(--bg-gradient);
+    background-attachment: fixed;
+    transition: background-image 0.5s ease;
+}
+
+/* --- Main App Container (Glassmorphism) --- */
+.app-container {
+    width: 100%;
+    max-width: 520px;
+    background: var(--app-bg);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border-radius: 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px 0 var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    transition: background 0.5s ease, border 0.5s ease;
+}
+
+/* --- Header Section --- */
+.app-header {
+    padding: 30px 30px 20px;
+    color: var(--text-primary);
+    position: relative;
+}
+
+#greeting {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+#date-display {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* --- Theme Switcher --- */
+#theme-switcher {
+    position: absolute;
+    top: 30px;
+    right: 25px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+#theme-switcher:hover {
+    transform: rotate(180deg) scale(1.1);
+}
+
+/* --- Progress Section --- */
+.progress-section {
+    padding: 0 30px 20px;
+}
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+.progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background-color: rgba(127, 140, 141, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+}
+#progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    border-radius: 5px;
+    transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* --- Task List Section --- */
+.task-section {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 350px); /* Adjust based on your layout */
+    min-height: 200px;
+    padding: 0 10px;
+}
+/* Custom scrollbar for a cleaner look */
+.task-section::-webkit-scrollbar { width: 6px; }
+.task-section::-webkit-scrollbar-track { background: transparent; }
+.task-section::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 18px 20px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+.task-item:hover {
+    background-color: rgba(127, 140, 141, 0.1);
+    transform: translateY(-2px);
+}
+
+.task-item.completed .task-title {
+    color: var(--text-secondary);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+}
+
+.task-title {
+    flex-grow: 1;
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+/* Custom Checkbox */
+.task-checkbox {
+    width: 22px;
+    height: 22px;
+    margin-right: 18px;
+    flex-shrink: 0;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+.task-item.completed .task-checkbox {
+    background-color: var(--accent-secondary);
+    border-color: var(--accent-secondary);
+}
+.task-checkbox::after { /* The checkmark */
+    content: '✔';
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.task-item.completed .task-checkbox::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.delete-btn {
+    background: none; border: none;
+    color: var(--text-secondary);
+    font-size: 20px; font-weight: bold;
+    cursor: pointer; opacity: 0;
+    transition: opacity 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+.task-item:hover .delete-btn { opacity: 1; }
+.delete-btn:hover { color: var(--delete-color); transform: scale(1.2); }
+
+/* Animation for adding/deleting tasks */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+.task-item.adding { animation: slideIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+
+/* --- Footer Input Section --- */
+.app-footer {
+    padding: 20px 30px;
+    border-top: 1px solid var(--border-color);
+}
+.add-task-form { display: flex; }
+#new-task-input {
+    flex-grow: 1;
+    border: none;
+    background: rgba(127, 140, 141, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    color: var(--text-primary);
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+#new-task-input:focus {
+    box-shadow: 0 0 0 3px var(--accent-primary);
+}
+#add-task-btn {
+    flex-shrink: 0;
+    width: 50px; height: 50px;
+    margin-left: 12px;
+    border: none;
+    border-radius: 50%;
+    background: var(--accent-primary);
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    display: flex; justify-content: center; align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+#add-task-btn:hover {
+    background-color: #2980b9; /* Darker accent */
+    transform: scale(1.1) rotate(90deg);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 560px) {
+    body { padding: 0; }
+    .app-container {
+        border-radius: 0;
+        min-height: 100vh;
+        box-shadow: none;
+        border: none;
+    }
+    .task-section { max-height: calc(100vh - 300px); }
+}
